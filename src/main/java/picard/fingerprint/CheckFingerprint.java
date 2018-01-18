@@ -89,7 +89,7 @@ import java.util.List;
  * <br/>
  * <h3>Detailed Explanation</h3>
  * <p>
- * This tool calculates a single number that reports the LOD score for identity check between the {@link #inputPath}
+ * This tool calculates a single number that reports the LOD score for identity check between the {@link #INPUT}
  * and the {@link #GENOTYPES}. A positive value indicates that the data seems to have come from the same individual
  * or, in other words the identity checks out. The scale is logarithmic (base 10), so a LOD of 6 indicates
  * that it is 1,000,000 more likely that the data matches the genotypes than not. A negative value indicates
@@ -146,14 +146,14 @@ public class CheckFingerprint extends CommandLineProgram {
                     "<h3>Example comparing a bam against known genotypes:</h3> " +
                     "<pre> " +
                     "    java -jar picard.jar CheckFingerprint \\\n " +
-                    "         inputPath=sample.bam \\\n " +
+                    "         INPUT=sample.bam \\\n " +
                     "         GENOTYPES=sample_genotypes.vcf \\\n " +
                     "         HAPLOTYPE_DATABASE=fingerprinting_haplotype_database.txt \\\n " +
                     "         OUTPUT=sample_fingerprinting " +
                     "</pre> " +
                     "<br/> " +
                     "<h3>Detailed Explanation</h3>" +
-                    "This tool calculates a single number that reports the LOD score for identity check between the inputPath and the GENOTYPES. " +
+                    "This tool calculates a single number that reports the LOD score for identity check between the INPUT and the GENOTYPES. " +
                     "A positive value indicates that the data seems to have come from the same individual or, " +
                     "in other words the identity checks out. " +
                     "The scale is logarithmic (base 10), " +
@@ -231,7 +231,7 @@ public class CheckFingerprint extends CommandLineProgram {
 
         try {
             inputPath = IOUtil.getPath(INPUT);
-            genotypesPath= IOUtil.getPath(GENOTYPES);
+            genotypesPath = IOUtil.getPath(GENOTYPES);
         } catch (IOException e) {
             throw new IllegalArgumentException(e);
         }
@@ -256,7 +256,7 @@ public class CheckFingerprint extends CommandLineProgram {
                 if (observedSampleAlias == null) {
                     observedSampleAlias = rec.getSample();
                 } else if (!observedSampleAlias.equals(rec.getSample())) {
-                    throw new PicardException("inputPath SAM/BAM file must not contain data from multiple samples.");
+                    throw new PicardException("INPUT SAM/BAM file must not contain data from multiple samples.");
                 }
             }
             CloserUtil.close(in);
